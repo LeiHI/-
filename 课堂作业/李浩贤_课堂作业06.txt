@@ -1,0 +1,27 @@
+编译语言数据库接口
+·ODBC
+·DAO
+·OLE DB
+·RDO
+·ADO
+·PDO
+·MongoDB
+
+解释语言数据库接口
+·JDBC
+
+Python链接方法对比
+1. MySQL-python
+又叫 MySQLdb，只支持 Python2.x，因为它是基于C开发的库，在 Windows 平台安装非常不友好，经常出现失败的情况。
+
+2. mysqlclient
+完全兼容 MySQLdb，同时支持 Python3.x，是 Django ORM的依赖工具，如果你想使用原生 SQL 来操作数据库，那么推荐此驱动。
+
+3. PyMySQL
+PyMySQL 是纯 Python 实现的驱动，速度上比不上 MySQLdb，最大的特点可能就是它的安装方式没那么繁琐，同时也兼容 MySQL-python。
+
+4. peewee
+它是 Python 中是最流行的 ORM 框架。
+
+5.SQLAlchemy
+如果想找一种既支持原生 SQL，又支持 ORM 的工具，那么 SQLAlchemy 是最好的选择，它非常接近 Java 中的 Hibernate 框架。

@@ -1,0 +1,114 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema blcu
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema blcu
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `blcu` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `blcu` ;
+
+-- -----------------------------------------------------
+-- Table `blcu`.`Course`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `blcu`.`Course` (
+  `CourseID` INT UNSIGNED NOT NULL,
+  `Course name` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`CourseID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `blcu`.`Guide Teacher`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `blcu`.`Guide Teacher` (
+  `TeacherID` INT NOT NULL,
+  `ProjectID` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `gender` VARCHAR(45) NOT NULL,
+  INDEX `Tearcher_idx` (`TeacherID` ASC) VISIBLE,
+  INDEX `Project_idx` (`ProjectID` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `blcu`.`Normal Teacher`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `blcu`.`Normal Teacher` (
+  `TeacherID` INT NOT NULL,
+  `CourseID` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `gender` VARCHAR(45) NOT NULL,
+  INDEX `Teacher_idx` (`TeacherID` ASC) VISIBLE,
+  INDEX `Course_idx` (`CourseID` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `blcu`.`Project`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `blcu`.`Project` (
+  `ProjectID` INT UNSIGNED NOT NULL,
+  `Name` VARCHAR(45) NULL DEFAULT NULL,
+  `Type` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`ProjectID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `blcu`.`Student`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `blcu`.`Student` (
+  `StudentID` INT UNSIGNED NOT NULL,
+  `CourseID` INT NULL DEFAULT NULL,
+  `ProjectID` INT NULL DEFAULT NULL,
+  `Name` VARCHAR(45) NULL DEFAULT NULL,
+  `Gender` VARCHAR(45) NULL DEFAULT NULL,
+  `Degree` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`StudentID`),
+  INDEX `Course_idx` (`CourseID` ASC) VISIBLE,
+  INDEX `Project_idx` (`ProjectID` ASC) VISIBLE,
+  CONSTRAINT `Course`
+    FOREIGN KEY (`CourseID`)
+    REFERENCES `blcu`.`Course` (`CourseID`),
+  CONSTRAINT `Project`
+    FOREIGN KEY (`ProjectID`)
+    REFERENCES `blcu`.`Project` (`ProjectID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `blcu`.`Teacher`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `blcu`.`Teacher` (
+  `TeacherID` INT NOT NULL,
+  `Name` VARCHAR(45) NULL DEFAULT NULL,
+  `Gender` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`TeacherID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
